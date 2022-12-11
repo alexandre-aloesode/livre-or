@@ -68,6 +68,26 @@
         transition-duration: 0.5s;
     }
 
+    .answer_button{
+        background-color: blue;
+    }
+
+    /* select {
+        width: 80%;
+        height: 50px;
+        border-radius: 5px;
+        border: 1px solid #6B4B3E;
+        outline-color: purple;
+        background-color: white;
+        font-size: 100%;
+        color: purple;
+    }
+
+    select i {
+        color: purple;
+        font-size: 300%;
+    } */
+
     #delete_profile {
         background-color: red;
         padding: 20px;

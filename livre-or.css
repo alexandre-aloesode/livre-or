@@ -1,6 +1,6 @@
 
 
-#comment_form{
+.comment_form{
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -31,6 +31,37 @@
         transition-duration: 0.5s;
     }
 
+    .answer_button {
+        background-color: blue;
+    }
+
+    .modify_comment {
+        background-color: green;
+    }
+
+    #modif_title {
+        color: green;
+    }
+
+    #modif_area {
+        outline-color: green;
+    }
+
+    #send_modif {
+        background-color: green;
+    }
+
+    #answer_title {
+        color: blue;
+    }
+
+    #answer_area {
+        outline-color: blue;
+    }
+
+    #send_answer {
+        background-color: blue;
+    }
 
 table {
     border-collapse: collapse;
@@ -54,6 +85,19 @@ table {
         word-wrap: break-word;
       }
       
-    table i {
+    .comment_lines i {
         color: purple;
+    }
+
+    #show_answers_button {
+        background-color: gold;
+    }
+
+    .answer_lines {
+        color: gold;
+        border-bottom: solid 1px rgba(255, 217, 0, 0.258);
+    }
+
+    .answer_lines i{
+        color: gold;
     }

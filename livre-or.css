@@ -93,11 +93,19 @@ table {
         background-color: gold;
     }
 
+    #hide_answers_button {
+        background-color: gold;
+    }
+
     .answer_lines {
         color: gold;
         border-bottom: solid 1px rgba(255, 217, 0, 0.258);
     }
 
-    .answer_lines i{
+    .answer_lines i {
         color: gold;
+    }
+
+    .button_line {
+        border: none;
     }

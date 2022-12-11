@@ -29,10 +29,13 @@
         header('Location: livre-or.php');
     }
 
-// Ci_dessous la requête pour supprimer le commentaire que l'utilisateur choisit d'enlever.
+// Ci_dessous la requête pour supprimer le commentaire que l'utilisateur choisit d'enlever, et les réponses asssociées.
     if(isset($_POST['delete'])) {
         $request_delete_comment = "DELETE FROM `commentaires` WHERE `commentaires`.`id` = '$_POST[delete]'";
         $query_delete_comment = $mysqli->query($request_delete_comment);
+
+        $request_delete_answers = "DELETE FROM `reponses` WHERE `reponses`.`id_commentaire` = '$_POST[delete]'";
+        $query_delete_answers = $mysqli->query($request_delete_answers);
         header('Location: livre-or.php');
     }
 
@@ -158,12 +161,12 @@ Pour les modifications de commentaire et réponses aux commentaires, je crée un
                 ?> 
                     
                         <tr class="comment_lines">
+                            
                             <td> <?php echo 'Le ' . $date ?> </td>
 
                             <td> <i class="fa-solid fa-user"> </i> <?php echo $result_comments[$x][1] ?> </td>
 
                             <td> <?php echo $result_comments[$x][2] ?>
-
                                     
                             </td>
 
@@ -199,46 +202,60 @@ Ce bouton récupère en value l'id du commentaire-->
                                     </form>
 
                                 </td>
+                            <?php endif ?> 
 
-<!-- Ci_dessous une boucle for qui vient parcourir la table reponses dans la colonne id_commentaire. S'il y a un match j'affiche un bouton voir les commentaires,
-et si l'utilisateur appui ça affiche les commentaires. -->
-                                <?php for($j = 0; isset($result_answers[$j]); $j++) : ?>
+<!-- Ci_dessous une boucle for qui vient parcourir la table reponses dans la colonne id_commentaire. S'il y a un match j'affiche un bouton voir les réponses,
+et si l'utilisateur appuie ça affiche les réponses. -->
+                            <?php for($j = 0; isset($result_answers[$j]); $j++) : ?>
 
-                                    <?php if($result_comments[$x][3] == $result_answers[$j][3]) : ?>
+                                <?php if($result_comments[$x][3] == $result_answers[$j][3]) : ?>
+                
+                                    <?php if(isset($_POST['show_answers']) && $_POST['show_answers'] == $result_comments[$x][3]) : ?>
+<!-- Je rajoute le && $_POST['show_answers'] == $result_comments[$x][3]) sinon en appuyant sur le bouton des réponses, toutes les lignes avec des réponses s'affichent. 
+Avec cette condition il n'y a que la ligne avec l'id de commentaire correspondante qui s'affiche.                                         -->
+                                        <tr class="answer_lines">
 
-                                        <?php if(isset($_POST['show_answers'])) : ?>
+                                            <td> 
+                                                <?php
+                                                    $date_answer = strtotime($result_answers[$j][5]);
+                                                    $date_answer = date('d/m/Y à H:i', $date_answer);
+                                                    echo 'Le ' . $date_answer;
+                                                ?> 
+                                            </td>
 
-                                            <tr class="answer_lines">
+                                            <td> <i class="fa-solid fa-user"> </i> <?php echo $result_answers[$j][2] ?> </td>
 
-                                                <td> 
-                                                    <?php
-                                                        $date_answer = strtotime($result_answers[$j][5]);
-                                                        $date_answer = date('d/m/Y à H:i', $date_answer);
-                                                        echo 'Le ' . $date_answer;
-                                                    ?> 
-                                                </td>
+                                            <td> <?php echo $result_answers[$j][1] ?> </td>
 
-                                                <td> <i class="fa-solid fa-user"> </i> <?php echo $result_answers[$j][2] ?> </td>
+                                        </tr>   
 
-                                                <td> <?php echo $result_answers[$j][1] ?> </td>
+                                    <?php else : ?>
 
-                                            </tr>
+                                        <tr class="button_line">
+                                            <td>
+                                                <form method="post">
+                                                    <button type="submit" id="show_answers_button" name="show_answers" 
+                                                    value="<?php echo $result_comments[$x][3] ?>">Voir les réponses</button>
+                                                </form>
+                                            </td>
+                                        </tr>                                 
+                                        <?php break ?>
 
-                                        <?php else : ?>
-
-                                            <tr>
-                                                <td>
-                                                    <form method="post">
-                                                        <button type="submit" id="show_answers_button" name="show_answers">Voir les réponses</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <?php break ?>
-
-                                        <?php endif ?>
                                     <?php endif ?>
-                                <?php endfor ?>
-                            <?php endif ?>                                                  
+                                <?php endif ?>
+                            <?php endfor ?>
+
+<!-- Ci_dessous le bouton pour masquer les réponses si on les a affichées. -->
+                            <?php if(isset($_POST['show_answers']) && $_POST['show_answers'] == $result_comments[$x][3]) : ?>
+                                <tr class="button_line">
+                                    <td>
+                                        <form method="post">
+                                            <button type="submit" id="hide_answers_button" name="hide_answers">Masquer les réponses</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endif ?>
+
                         </tr>                 
                     <?php endfor ?>
             </tbody>

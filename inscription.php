@@ -106,18 +106,6 @@
                 <input type="text" name="pseudo">
                 <br>
 
-                <label for="avatar">Choisissez votre avatar</label>
-                    <select name ="avatar">
-                        <option>--</option>
-                        <option><i class="fa-solid fa-user-nurse"></i></option>
-                        <option><i class="fa-solid fa-user-secret"></i></option>
-                        <option><i class="fa-solid fa-user-ninja"></i></option>
-                        <option><i class="fa-solid fa-users"></i></option>
-                        <option>ijrizaa</option>
-
-                    </select>
-                <br>
-
                 <label for="pseudo">Mot de passe:</label>
                 <input type="password" name="mdp">
                 <br>

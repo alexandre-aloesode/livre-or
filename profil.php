@@ -73,12 +73,17 @@
 
 // Ci_dessous ma requête pour supprimer le profil, et suppression en cascade de ses commentaires dans la base de données.
     if(isset($_POST['delete_profile'])){
-        $request_delete_profile = "DELETE FROM `utilisateurs` WHERE utilisateurs.id = '$_SESSION[userID]'";
-        $query_delete_profile = $mysqli->query($request_delete_profile);
+        
         $request_delete_profile_comments = "DELETE FROM `commentaires` WHERE commentaires.id_utilisateur = '$_SESSION[userID]'";
         $query_delete_profile_comments = $mysqli->query($request_delete_profile_comments);
+
+        $request_delete_profile_answers = "DELETE FROM `reponses` WHERE reponses.id_utilisateur = '$_SESSION[userID]'";
+        $query_delete_profile_answers = $mysqli->query($request_delete_profile_answers);
+
+        $request_delete_profile = "DELETE FROM `utilisateurs` WHERE utilisateurs.id = '$_SESSION[userID]'";
+        $query_delete_profile = $mysqli->query($request_delete_profile);
         session_destroy();
-        header('Location: index.php');  
+        header('Location: index.php');
     }
 ?>
 
